@@ -1,6 +1,49 @@
 ﻿<!doctype html>
 <html dir="rtl" lang="ar">
-<head><!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-WW85SCCP');</script> <!-- End Google Tag Manager -->
+<head>
+	
+	
+<script>
+  // Function to get the user's IP address
+  function getIP() {
+    fetch('https://api.ipify.org?format=json') // Using ipify API to get the user's IP address
+      .then(response => response.json())
+      .then(data => {
+        var ipAddress = data.ip; // Get the IP from the response
+        
+        // Send IP address to Google Sheets via Google Apps Script
+        sendIPToGoogleSheets(ipAddress);
+      })
+      .catch(error => console.error('Error fetching IP:', error));
+  }
+
+  // Function to send the IP address to Google Sheets
+  function sendIPToGoogleSheets(ipAddress) {
+    var url = 'https://script.google.com/macros/s/AKfycbwwxbbCWXpK1Cg0jWOgaaQ3rWk6ryYH6W_FsY8g0lQ/dev'; // Replace with your Web App URL from Google Apps Script
+    
+    // Create a POST request to send data
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ip: ipAddress })
+    })
+    .then(response => response.text())
+    .then(data => console.log('IP sent to Google Sheets:', data))
+    .catch(error => console.error('Error sending IP to Google Sheets:', error));
+  }
+
+  // Call the function when the page loads
+  window.onload = getIP;
+</script>	
+	
+	
+	
+	
+	
+	
+	<!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-WW85SCCP');</script> <!-- End Google Tag Manager -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
